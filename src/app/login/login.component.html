@@ -1,0 +1,21 @@
+<p>login works!</p>
+
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>User</mat-label>
+      <input matInput type="text" formControlName="name" required>
+      <mat-error *ngIf="name.invalid && name.touched">
+          <span *ngIf="name.errors.required">User name required</span>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      <mat-error *ngIf="password.invalid && password.touched">
+        <span *ngIf="password.errors.required">Password required</span>
+    </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+  </form>

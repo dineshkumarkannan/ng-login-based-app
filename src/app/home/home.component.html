@@ -1,0 +1,32 @@
+<p>Hi, {{user.name}}!</p> 
+<button mat-raised-button color="primary" (click)="logout()">Logout</button>
+
+<mat-form-field *ngIf="user.isAdmin">
+<mat-label>Add Items</mat-label>
+<input matInput type="number" min="1" [formControl]="totalItems" (change)="updateItemsCount()" required>
+<mat-error *ngIf="totalItems.invalid && totalItems.touched">
+    <span *ngIf="totalItems.errors.required">Total Items required</span>
+    <span *ngIf="totalItems.errors.min">Total Items should be > 0</span>
+</mat-error>
+</mat-form-field>
+
+
+
+<mat-grid-list cols="3" >
+    <mat-grid-tile *ngFor="let item of items">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{item.name}}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>{{item.count}}</mat-card-content>
+              <mat-card-actions>
+                <button mat-mini-fab color="accent" *ngIf="user.isAdmin && canAddItem" aria-label="Add one item" (click)="updateCount(item, 1)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="warn" *ngIf="item.count > 0" aria-label="Delete one item" (click)="updateCount(item, -1)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+              </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
